@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'grafico3.dart';
+import 'grafico4.dart';
 
 
 class HomePage extends StatelessWidget{
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget{
         ],
       ),
       body: Center(
-        child: Grafico3(),
+        child: Grafico4(),
       ),
       //drawer: MenuLateral(),
     );

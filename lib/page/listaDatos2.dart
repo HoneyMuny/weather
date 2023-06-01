@@ -17,7 +17,7 @@ class _searchScreenState extends State<ListaDatos2> {
   late DateTime tsdatec;
   late Timestamp myTimeStamp;
   //late String myTimeStamp;
-  var fecha;
+  var Fecha;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -53,8 +53,8 @@ class _searchScreenState extends State<ListaDatos2> {
 
   consulta(){
    FirebaseFirestore.instance
-        .collection('variablesTH2')
-        .where('fecha')//fechaformat2(fecha)) //fechaformat2(searchController.text))
+        .collection('variablesTH')
+        .where('Fecha')//fechaformat2(fecha)) //fechaformat2(searchController.text))
         .get();
     print("=================");
 
@@ -79,7 +79,7 @@ class _searchScreenState extends State<ListaDatos2> {
                      isShowOrder = true;
                   });
                     print('confirm $date');
-                    fecha=date.toString();
+                    Fecha=date.toString();
                     //tsdatec=date;
                   print(date);
                   }, locale: LocaleType.es);
@@ -107,9 +107,9 @@ class _searchScreenState extends State<ListaDatos2> {
       body: isShowOrder
           ? FutureBuilder(
         future: FirebaseFirestore.instance
-            .collection('variablesTH2')
+            .collection('variablesTH')
             //.where('temperatura', isGreaterThanOrEqualTo: double.parse(searchController.text))
-            .where('fecha', isGreaterThanOrEqualTo: fecha)//fechaformat2(fecha)) //fechaformat2(searchController.text))
+            .where('Fecha', isGreaterThanOrEqualTo: Fecha)//fechaformat2(fecha)) //fechaformat2(searchController.text))
             .get(),
             //.then(...);
         builder: (context, snapshot) {
@@ -133,12 +133,12 @@ class _searchScreenState extends State<ListaDatos2> {
                   title: /*Text(
                     'Temperatura: ${(snapshot.data! as dynamic).docs[index]['temperatura'].toString()}',
                   ),*/
-                  Text("Humedad: "+snapshot.data!.docs[index]['humedad'].toString()),
+                  Text("Humedad: "+snapshot.data!.docs[index]['Humedad'].toString()),
                   subtitle: /*Text(
                     'Humedad: ${(snapshot.data! as dynamic).docs[index]['humedad'].toString()}',
                   ),*/
                  // Text("Temperatura: "+snapshot.data!.docs[index]['temperatura'].toString()+"\n"+"Fecha: "+fechaformat(snapshot.data!.docs[index]['fecha']).toString()),
-                  Text("Temperatura: "+snapshot.data!.docs[index]['temperatura'].toString()+"\n"+"Fecha: "+snapshot.data!.docs[index]['fecha']),
+                  Text("Temperatura: "+snapshot.data!.docs[index]['Temperatura'].toString()+"\n"+"Fecha: "+snapshot.data!.docs[index]['Fecha']),
                 ),
               );
             },
@@ -146,7 +146,7 @@ class _searchScreenState extends State<ListaDatos2> {
         },
       )
           : StreamBuilder<QuerySnapshot>(
-          stream:FirebaseFirestore.instance.collection('variablesTH2').snapshots(),//loadAllAspirantes(),
+          stream:FirebaseFirestore.instance.collection('variablesTH').snapshots(),//loadAllAspirantes(),
           builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
             if (!data.hasData) {
               return Center(
@@ -158,8 +158,8 @@ class _searchScreenState extends State<ListaDatos2> {
                 Map<String, dynamic>  data = document.data()! as Map<String, dynamic>;
                 //DateTime dt = (data['timestamp'] as Timestamp).toDate();
                 return ListTile(
-                  title: Text("Humedad: "+data['humedad'].toString()),
-                  subtitle: Text("Temperatura: "+data['temperatura'].toString()+"\n"+"Fecha: "+fechaformat2(data['fecha']).toString()),
+                  title: Text("Humedad: "+data['Humedad'].toString()),
+                  subtitle: Text("Temperatura: "+data['Temperatura'].toString()+"\n"+"Fecha: "+fechaformat2(data['Fecha']).toString()),
                   );
               }).toList(),
             );
